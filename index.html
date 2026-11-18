@@ -34,6 +34,8 @@ html,body{height:var(--appH,100%);background:#000;overflow:hidden;font-family:va
 .tbtn svg{width:24px;height:24px}
 #display{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-end;padding:0 19px 13.5px 19px;overflow:hidden}
 #exprLine{color:#8d8d92;font-size:30px;font-weight:400;line-height:1.15;white-space:nowrap;min-height:36px;max-width:100%;letter-spacing:.3px}
+#peekLine{color:#8d8d92;font-size:22px;font-weight:400;line-height:1.2;white-space:nowrap;max-width:100%;text-align:right}
+#peekLine div{white-space:nowrap}
 #mainLine{color:#fff;font-size:65.5px;font-weight:400;line-height:1;white-space:nowrap;letter-spacing:0;max-width:100%;font-variant-numeric:tabular-nums}
 #keys{display:grid;grid-template-columns:repeat(4,var(--k));grid-auto-rows:var(--k);gap:var(--g);justify-content:center;
   padding:0 var(--m) calc(max(var(--safeB),20px) + 28.7px)}
@@ -148,6 +150,7 @@ html,body{height:var(--appH,100%);background:#000;overflow:hidden;font-family:va
     </div>
   </div>
   <div id="display">
+    <div id="peekLine" class="hidden"></div>
     <div id="exprLine"></div>
     <div id="mainLine">0</div>
   </div>
@@ -404,12 +407,18 @@ document.querySelectorAll('#keys .key').forEach(el=>{
 /* Peek dans la calculatrice (maintenir +/−) */
 function peekOn(){
   peeking=true;
-  const code=T.code;
-  if(code){mainLine.textContent=code;exprLine.textContent=dateShort()||''}
-  else{const p=buildPeek();mainLine.textContent=p.rawFirst||'0';exprLine.textContent=p.date||''}
-  fit(mainLine,mainBase());fit(exprLine,30);
+  const code=T.code,p=buildPeek();
+  const first=T.hist[0];
+  const calcTxt=first?(/[+−×÷]/.test(first.expr)?first.expr+' = '+first.res:'= '+first.res):(p.current||'');
+  const pl=$('#peekLine');
+  pl.innerHTML='<div>Code : '+esc(code||'—')+'</div><div>'+esc(dateShort()||'')+'</div>';
+  pl.classList.remove('hidden');
+  const r=first?first.res:(p.rawFirst||'0');
+  mainLine.textContent=r;
+  exprLine.textContent='';exprLine.style.display='none';
+  fit(mainLine,mainBase());fit(exprLine,30);fit(pl,22);
 }
-function peekOff(){peeking=false;
+function peekOff(){peeking=false;exprLine.style.display='';$('#peekLine').classList.add('hidden');
   if(justEval&&expr.length)exprLine.textContent=exprToStr(expr);
   render();}
 
