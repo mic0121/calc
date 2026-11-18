@@ -72,6 +72,7 @@ html,body{height:var(--appH,100%);background:#000;overflow:hidden;font-family:va
 
 /* ===== PLANTAGE ===== */
 #crash{background:#000;z-index:50}
+#signOv{z-index:80;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;font-size:min(16vw,72px);font-weight:600;letter-spacing:-.5px;pointer-events:none}
 #bootImg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0}
 #bootImg.small{inset:auto;left:50%;top:50%;width:var(--logoW,18%);height:auto;max-height:22%;object-fit:contain;transform:translate(-50%,-52%)}
 #bootImg.on{opacity:1}
@@ -185,6 +186,8 @@ html,body{height:var(--appH,100%);background:#000;overflow:hidden;font-family:va
   </div>
  </div>
 </div>
+
+<div id="signOv" class="screen hidden"></div>
 
 <!-- ============ PLANTAGE ============ -->
 <div id="crash" class="screen hidden"><img id="bootImg" alt=""></div>
@@ -401,6 +404,8 @@ document.querySelectorAll('#keys .key').forEach(el=>{
   const k=el.dataset.k;
   if(k==='neg')bindKey(el,()=>press('neg'),peekOn,peekOff,450);
   else if(k==='ac')bindKey(el,()=>press('ac'),()=>{rearm();press('ac')},null,1000);
+  else if(k==='1')bindKey(el,()=>press('1'),dualResOn,dualResOff,450);
+  else if(k==='2')bindKey(el,()=>press('2'),dualSignOn,dualSignOff,450);
   else bindKey(el,()=>press(k));
 });
 
@@ -421,6 +426,21 @@ function peekOn(){
 function peekOff(){peeking=false;exprLine.style.display='';$('#peekLine').classList.add('hidden');
   if(justEval&&expr.length)exprLine.textContent=exprToStr(expr);
   render();}
+
+/* Double réalité (après le tour) : appui long sur 1 = résultat, sur 2 = signe */
+let dual=null;
+function dualReady(){return !T.armed&&T.hist.length}
+function dualResOn(){
+  if(!dualReady()){dual='tap';return}
+  dual='res';peeking=true;mainLine.textContent=T.hist[0].res;exprLine.textContent='';fit(mainLine,mainBase());
+}
+function dualResOff(){if(dual==='tap'){dual=null;press('1');return}dual=null;peeking=false;render()}
+function dualSignOn(){
+  const c=parseDate(T.first);
+  if(!dualReady()||!c){dual='tap';return}
+  dual='sign';const o=$('#signOv');o.textContent=sign(c[0].d,c[0].m);o.classList.remove('hidden');
+}
+function dualSignOff(){if(dual==='tap'){dual=null;press('2');return}dual=null;$('#signOv').classList.add('hidden')}
 
 /* Déclencheur manuel : 2 touches sur la zone du nombre */
 let lastDispTap=0;
