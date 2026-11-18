@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Calculatrice">
+<meta name="theme-color" content="#000000">
+<meta name="format-detection" content="telephone=no">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAFKUlEQVR4Xu3c0ZHjNhCEYZ4TcBobg6PYJByVk9goLoZNwxn4geUt1EqUGphu6ID7v8crcIpHtAaUlsRxAAAAAAAAAAAAAAAAAAAAAAAAAH4//CX/9/b2liuO1ufnZ+KCRMJBLF7CHpE/7P8NkvEq9itvDof9/NDFe/2d4fCeGcYYZ8EZDmzGFg5jYFHkmgtbOLAfwoFLhAOEA/3oHKBzoB+dA3QO9KNzgM6BfrbOYX+YAMNcc2ELB/bjDIcrsKgwzoIzHMfhPDMMMCbjONzhIB8v5E3GcWQeMD65nirAU/ZYAAAAAAAA7CXylv1d7+/vt//+8fHhup6r12/9+89ft5flz79/uq6VKB6Ou3NmTMnq9Z9m4oUpCYZDnLZWVyNZvf5ALFoTGon5r7JfBmbuODqOWr1+MRnHcX/p8YqEY2zmTsqxypgryrHKmEr9ejJOd29NjPzhqFxZJR+r13clY0I+zOGoz9zjfKxe35uMdD6c4XDN3FU+Vq+fSEY0H85wYDO2cHg/1rfNY/X6ubaRax62cGA/hAOXPOFI9Px2ZVm9fnpNCa0snnBgS4QD4WUFW6JzgM6BfnQOhDtH10M6Xc7Kq9dv5R7SsVemcyDcObAlW+dIdP625ur10yuLfU2JbN6Cbdg6h/228bZVeJvH/Pq55pFoG/7O4Zq/qzqr10/kI5QMfzgs/eNxAur5eG19bz5yyYiEo5gPZe6VMVeUY5UxlfqufESTkQrHcD70WdFHtvSj9JFj9ev5SCcju5vgSXxOZ2wyNqjfEl9SmhCLU/Bd2W9Wfws+ff5PUzItEwAAJHDPofoN7zni4eDbiu43+rYixqLV9YV29fpPv548NuHLi/MPb62BmdN/tOgaOXZW6fMvJmPCzi2pX0jHruxJOVYZc0U5VhlTqV9Pxklchob5O0flyir5WL2+KxkT8mEOR33mHudj9freZKTz4QyHa+au8rF6/UQyovlwhgObsYXD+7G+bR6r18+1jVzzsIUD+yEcuOQJR6LntyvL6vXTa0poZfGEA1siHAgvK9gSnQN0DvSjcyDcOboe0unCzj46++M/dA6EOwe2ZOsciZWFnX109jUl9Zgg9mDrHMNv1l+Zv/OOt/k9rub9oHurfXGGw5gPdvbRhZIRWVbqn7/X7ryTPv9WfV7rFR4wd45T5foqxypj9NXqVrq+Kx/RZEQ6RyUf+qzoI1v6UfrIsfr1fKSTMWPzFvE5nbHJEF+CqjSz9Pm3xJeUJsTiFH+R+kv6LfXV6z9NybRMAACQwD2HKn1P8wvec8TDkb7bX73+00zcmnZnGgyHOG2tri+0q9cfiEVrQkQiv5DqPz98o8+3PrKlH6WPHKtfTMaEnVtSv5COXdmTcqwy5opyrDKmUr+ejJP4o9kwf+eoXFklH6vXdyVjQj7M4ajP3ON8rF7fm4x0PpzhcM3cVT5Wr59IRjQfznBgM7ZweD/Wt81j9fq5tpFrHrZwYD+EA5c84Uj0/HZlWb1+ek0JrSyecGBLhAPhZQVbonOAzoF+dA6EO0fXQzpd2NlHZ3/8h86BcOfAlmydI7GysLOPzr6mpB4TxB5snaPysvJd7OyjS7QNf+dwLS7s7KMLJcMfDkv/YGcfXS4ZkXAU86H0HmXMFeVYZUylfqsyu5VjFc57jtbY9dWP0keOnVW6fj0f6WTM2LxFfE5nbDLEl6AqzSx9/i3xJaUJsTgF35X9Jv2W+ur1n6ZkWiYAAAAAAAAAAAAAAAAAAAAAAAAAAPjF/Ad2PM31vk0fagAAAABJRU5ErkJggg==">
+<title>Calculatrice</title>
+<style>
+:root{
+  --m:16px; --g:8px;
+  --k:min(calc((100vw - 2*var(--m) - 3*var(--g))/4), 92px);
+  --safeT:env(safe-area-inset-top,0px); --safeB:env(safe-area-inset-bottom,0px);
+  --font:-apple-system,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+html,body{height:100%;background:#000;overflow:hidden;font-family:var(--font);color:#fff;touch-action:manipulation;overscroll-behavior:none}
+.screen{position:fixed;inset:0;}
+.hidden{display:none!important}
+
+/* ===== CALCULATRICE ===== */
+#calc{background:#000;display:flex;flex-direction:column;align-items:center}
+#calcInner{position:relative;width:100%;max-width:430px;height:100%;display:flex;flex-direction:column}
+.topbar{position:absolute;left:var(--m);right:var(--m);top:max(calc(var(--safeT) + 2px),14px);display:flex;justify-content:space-between;z-index:2}
+.tbtn{width:44px;height:44px;border-radius:50%;background:#1d1d1f;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.10),inset 0 0 0 .5px rgba(255,255,255,.10)}
+.tbtn svg{width:23px;height:23px}
+#display{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-end;padding:0 18px 22px 18px;overflow:hidden}
+#exprLine{color:#8d8d92;font-size:30px;font-weight:400;line-height:1.2;white-space:nowrap;min-height:36px;max-width:100%;letter-spacing:.3px}
+#mainLine{color:#fff;font-size:68px;font-weight:300;line-height:1.08;white-space:nowrap;letter-spacing:-.5px;max-width:100%;font-variant-numeric:tabular-nums}
+#keys{display:grid;grid-template-columns:repeat(4,var(--k));grid-auto-rows:var(--k);gap:var(--g);justify-content:center;
+  padding:0 var(--m) calc(var(--safeB) + 26px)}
+.key{border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:calc(var(--k)*.43);font-weight:400;color:#fff;
+  background:#333335;transition:background .35s ease;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.10),inset 0 0 0 .6px rgba(255,255,255,.09)}
+.key.fn{background:linear-gradient(#686868,#5b5b5b);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 0 0 .6px rgba(255,255,255,.12)}
+.key.op{background:linear-gradient(#f3a03f,#ee9634);font-size:calc(var(--k)*.5);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),inset 0 0 0 .6px rgba(255,255,255,.15)}
+.key.down{transition:none;background:#737373}
+.key.fn.down{background:#d4d4d2}
+.key.op.down{background:#f9c98f}
+.key svg{width:calc(var(--k)*.47);height:calc(var(--k)*.47)}
+.key .txt{transform:translateY(1px)}
+
+/* historique */
+#histDim{position:absolute;inset:0;background:rgba(0,0,0,.5);z-index:5;opacity:0;transition:opacity .3s}
+#histDim.on{opacity:1}
+#hist{position:absolute;left:8px;right:8px;bottom:8px;top:calc(100% - var(--safeB) - 26px - 5*var(--k) - 3.4*var(--g));
+  border-radius:38px 38px 46px 46px;z-index:6;overflow:hidden;
+  background:rgba(38,38,40,.62);-webkit-backdrop-filter:blur(26px) saturate(140%);backdrop-filter:blur(26px) saturate(140%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 0 0 .6px rgba(255,255,255,.10);
+  transform:translateY(105%);transition:transform .38s cubic-bezier(.2,.9,.25,1)}
+#hist.on{transform:translateY(0)}
+#hist .grab{position:absolute;top:6px;left:50%;width:56px;height:5px;margin-left:-28px;border-radius:3px;background:rgba(255,255,255,.35)}
+#histClose{position:absolute;top:14px;right:14px;width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:rgba(120,90,50,.45);box-shadow:inset 0 1px 0 rgba(255,255,255,.25),inset 0 0 0 .6px rgba(255,255,255,.25)}
+#histClose svg{width:18px;height:18px}
+#histEmpty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#8e8e93;font-size:19px;font-weight:500;gap:10px;padding-top:40px}
+#histEmpty svg{width:30px;height:30px}
+#histList{position:absolute;inset:66px 22px 24px 22px;overflow-y:auto;text-align:right}
+#histList .day{color:#8e8e93;font-size:15px;font-weight:600;text-align:left;margin:4px 0 8px}
+#histList .it{padding:8px 0;border-bottom:.5px solid rgba(255,255,255,.12)}
+#histList .e{color:#8e8e93;font-size:17px}
+#histList .r{color:#fff;font-size:26px;font-weight:400;margin-top:2px}
+
+/* ===== PLANTAGE ===== */
+#crash{background:#000;z-index:50}
+#bootImg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0}
+#bootImg.small{inset:auto;left:50%;top:50%;width:26%;height:auto;transform:translate(-50%,-50%)}
+#bootImg.on{opacity:1}
+
+/* ===== ÉCRAN DE CODE ===== */
+#lock{z-index:40;overflow:hidden;background:#000;transition:transform .42s cubic-bezier(.3,.8,.3,1),opacity .42s}
+#lock.out{transform:translateY(-100%);opacity:.0}
+#lock.fadein{animation:fin .45s ease}
+@keyframes fin{from{opacity:0}to{opacity:1}}
+#lockBg{position:absolute;inset:-60px;background:radial-gradient(120% 80% at 30% 20%,#3a4a6b 0%,#1b2236 45%,#0a0c14 100%);background-size:cover;background-position:center;filter:blur(30px) brightness(.62)}
+#lockInner{position:relative;height:100%;max-width:430px;margin:0 auto;display:flex;flex-direction:column;align-items:center}
+#lockTitleBox{margin-top:max(calc(var(--safeT) + 82px),110px);height:50px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;padding:0 20px}
+#lockTitle{font-size:21px;font-weight:400;letter-spacing:.2px}
+#lockPeek{font-size:14px;line-height:1.25;font-weight:500;color:rgba(255,255,255,.92)}
+#dots{display:flex;gap:23px;margin-top:20px;height:14px}
+#dots.shake{animation:shake .5s}
+@keyframes shake{0%,100%{transform:translateX(0)}12%{transform:translateX(-22px)}28%{transform:translateX(18px)}44%{transform:translateX(-13px)}60%{transform:translateX(9px)}76%{transform:translateX(-5px)}90%{transform:translateX(2px)}}
+.dot{width:13px;height:13px;border-radius:50%;border:1.4px solid #fff}
+.dot.f{background:#fff}
+#pad{display:grid;grid-template-columns:repeat(3,78px);grid-auto-rows:78px;column-gap:27px;row-gap:16px;margin-top:auto;margin-bottom:auto;transform:translateY(-12px)}
+.pk{border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(255,255,255,.16);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);transition:background .45s ease;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 0 0 .6px rgba(255,255,255,.14)}
+.pk.down{background:rgba(255,255,255,.55);transition:none}
+.pk .n{font-size:37px;font-weight:300;line-height:1;margin-top:-2px}
+.pk .l{font-size:10px;font-weight:700;letter-spacing:2.2px;margin-top:2px;padding-left:2px;height:12px}
+.pk.zero{grid-column:2}
+#lockBottom{width:100%;display:flex;justify-content:space-between;padding:0 42px calc(var(--safeB) + 30px);font-size:17px;font-weight:400}
+#lockBottom span{padding:8px 4px}
+
+/* ===== RÉGLAGES ===== */
+#settings{z-index:100;background:#000;overflow-y:auto;-webkit-overflow-scrolling:touch;-webkit-user-select:text;user-select:text}
+#settings *{-webkit-user-select:text;user-select:text}
+.sWrap{max-width:520px;margin:0 auto;padding:max(calc(var(--safeT) + 10px),20px) 16px calc(var(--safeB) + 40px)}
+.sHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.sHead h1{font-size:30px;font-weight:700}
+.btnTxt{color:#f19b3a;font-size:17px;font-weight:600;background:none;border:none;font-family:inherit;padding:6px}
+.grp{color:#8e8e93;font-size:13px;text-transform:uppercase;margin:22px 14px 6px;letter-spacing:.3px}
+.card{background:#1c1c1e;border-radius:12px;overflow:hidden}
+.row{padding:12px 14px;border-bottom:.5px solid #38383a;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:16px}
+.row:last-child{border-bottom:none}
+.row.col{flex-direction:column;align-items:stretch}
+.row select,.row input[type=number],.row input[type=text]{background:#2c2c2e;color:#fff;border:none;border-radius:8px;padding:8px 10px;font-size:16px;font-family:inherit}
+.row input[type=number]{width:80px;text-align:right}
+.row input[type=text]{width:100%}
+.note{color:#8e8e93;font-size:13px;margin:6px 14px 0;line-height:1.35}
+.sw{position:relative;width:51px;height:31px;flex:none}
+.sw input{opacity:0;width:0;height:0}
+.sw span{position:absolute;inset:0;background:#39393d;border-radius:31px;transition:.2s}
+.sw span:before{content:"";position:absolute;width:27px;height:27px;left:2px;top:2px;background:#fff;border-radius:50%;transition:.2s}
+.sw input:checked+span{background:#34c759}
+.sw input:checked+span:before{transform:translateX(20px)}
+.abtn{background:#2c2c2e;color:#fff;border:none;border-radius:8px;padding:9px 12px;font-size:15px;font-family:inherit}
+.abtn.red{color:#ff453a}
+.peekBox{background:#111;border-radius:10px;padding:10px;font-size:14px;line-height:1.45;color:#ddd;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace}
+.thumb{width:44px;height:44px;border-radius:8px;object-fit:cover;background:#2c2c2e}
+</style>
+</head>
+<body>
+
+<!-- ============ CALCULATRICE ============ -->
+<div id="calc" class="screen">
+ <div id="calcInner">
+  <div class="topbar">
+    <div class="tbtn" id="btnHist" aria-label="Historique">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.3"/><path d="M12 6.6V12H7.4"/></svg>
+    </div>
+    <div class="tbtn" id="btnMode" aria-label="Mode">
+      <svg viewBox="0 0 24 24" fill="#fff"><path d="M7.2 2h9.6A2.7 2.7 0 0 1 19.5 4.7v14.6A2.7 2.7 0 0 1 16.8 22H7.2a2.7 2.7 0 0 1-2.7-2.7V4.7A2.7 2.7 0 0 1 7.2 2Zm.3 2.1a.9.9 0 0 0-.9.9v2.6c0 .5.4.9.9.9h9a.9.9 0 0 0 .9-.9V5a.9.9 0 0 0-.9-.9h-9Z"/><circle cx="8.3" cy="11.6" r="1.25"/><circle cx="12" cy="11.6" r="1.25"/><circle cx="15.7" cy="11.6" r="1.25"/><circle cx="8.3" cy="15.1" r="1.25"/><circle cx="12" cy="15.1" r="1.25"/><circle cx="15.7" cy="15.1" r="1.25"/><circle cx="8.3" cy="18.6" r="1.25"/><circle cx="12" cy="18.6" r="1.25"/><circle cx="15.7" cy="18.6" r="1.25"/></svg>
+    </div>
+  </div>
+  <div id="display">
+    <div id="exprLine"></div>
+    <div id="mainLine">0</div>
+  </div>
+  <div id="keys">
+    <div class="key fn" data-k="back"><svg viewBox="0 0 40 30" fill="none" stroke="#fff" stroke-width="2.7" stroke-linejoin="round" stroke-linecap="round"><path d="M13.2 3.5h20.3a3 3 0 0 1 3 3v17a3 3 0 0 1-3 3H13.2L3 15Z"/><path d="M18.5 10l9.5 10M28 10l-9.5 10"/></svg></div>
+    <div class="key fn" data-k="ac"><span class="txt" id="acTxt">AC</span></div>
+    <div class="key fn" data-k="pct"><span class="txt">%</span></div>
+    <div class="key op" data-k="÷"><svg viewBox="0 0 40 40" fill="#fff"><circle cx="20" cy="9.5" r="2.7"/><rect x="5.5" y="18.4" width="29" height="3.2" rx="1.6"/><circle cx="20" cy="30.5" r="2.7"/></svg></div>
+    <div class="key" data-k="7"><span class="txt">7</span></div>
+    <div class="key" data-k="8"><span class="txt">8</span></div>
+    <div class="key" data-k="9"><span class="txt">9</span></div>
+    <div class="key op" data-k="×"><svg viewBox="0 0 40 40" stroke="#fff" stroke-width="3.2" stroke-linecap="round"><path d="M9.5 9.5l21 21M30.5 9.5l-21 21"/></svg></div>
+    <div class="key" data-k="4"><span class="txt">4</span></div>
+    <div class="key" data-k="5"><span class="txt">5</span></div>
+    <div class="key" data-k="6"><span class="txt">6</span></div>
+    <div class="key op" data-k="−"><svg viewBox="0 0 40 40" fill="#fff"><rect x="5.5" y="18.4" width="29" height="3.2" rx="1.6"/></svg></div>
+    <div class="key" data-k="1"><span class="txt">1</span></div>
+    <div class="key" data-k="2"><span class="txt">2</span></div>
+    <div class="key" data-k="3"><span class="txt">3</span></div>
+    <div class="key op" data-k="+"><svg viewBox="0 0 40 40" fill="#fff"><rect x="5.5" y="18.4" width="29" height="3.2" rx="1.6"/><rect x="18.4" y="5.5" width="3.2" height="29" rx="1.6"/></svg></div>
+    <div class="key" data-k="neg"><svg viewBox="0 0 40 40" fill="none" stroke="#fff" stroke-width="2.7" stroke-linecap="round"><path d="M6 10.5h9M10.5 6v9M27.5 7L12.5 33M25 30.5h9"/></svg></div>
+    <div class="key" data-k="0"><span class="txt">0</span></div>
+    <div class="key" data-k="comma"><span class="txt" style="transform:translateY(-6px)">,</span></div>
+    <div class="key op" data-k="="><svg viewBox="0 0 40 40" fill="#fff"><rect x="7" y="13.2" width="26" height="3.2" rx="1.6"/><rect x="7" y="23.6" width="26" height="3.2" rx="1.6"/></svg></div>
+  </div>
+  <div id="histDim" class="hidden"></div>
+  <div id="hist" class="hidden">
+    <div class="grab"></div>
+    <div id="histClose"><svg viewBox="0 0 20 20" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M3.5 3.5l13 13M16.5 3.5l-13 13"/></svg></div>
+    <div id="histEmpty"><svg viewBox="0 0 24 24" fill="none" stroke="#8e8e93" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.3"/><path d="M12 6.6V12H7.4"/></svg>Aucun historique</div>
+    <div id="histList"></div>
+  </div>
+ </div>
+</div>
+
+<!-- ============ PLANTAGE ============ -->
+<div id="crash" class="screen hidden"><img id="bootImg" alt=""></div>
+
+<!-- ============ ÉCRAN DE CODE ============ -->
+<div id="lock" class="screen hidden">
+  <div id="lockBg"></div>
+  <div id="lockInner">
+    <div id="lockTitleBox"><div id="lockTitle">Saisissez le code</div><div id="lockPeek" class="hidden"></div></div>
+    <div id="dots"></div>
+    <div id="pad"></div>
+    <div id="lockBottom"><span id="btnUrg">Urgence</span><span id="btnCancel">Annuler</span></div>
+  </div>
+</div>
+
+<!-- ============ RÉGLAGES (menu caché) ============ -->
+<div id="settings" class="screen hidden">
+ <div class="sWrap">
+  <div class="sHead"><h1>Réglages</h1><button class="btnTxt" id="sDone">OK</button></div>
+
+  <div class="grp">Dernier tour</div>
+  <div class="card"><div class="row col"><div class="peekBox" id="sPeek">—</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="abtn" id="sRearm">Réarmer le tour</button></div></div></div>
+  <div class="note">Réarmer efface les infos et l'historique. Raccourci secret : maintenir AC 1 seconde.</div>
+
+  <div class="grp">Nombre entré au départ</div>
+  <div class="card">
+    <div class="row"><span>Format</span>
+      <select id="sFmt">
+        <option value="auto">Auto (date)</option>
+        <option value="dmy">Date collée JJMMAAAA</option>
+        <option value="mdy">Date collée MMJJAAAA</option>
+        <option value="sep">Jour, mois, année séparés</option>
+        <option value="free">Nombre libre</option>
+      </select></div>
+  </div>
+  <div class="note">Date collée : 15031990, 1503 ou 150390. Séparés : 15 + 3 + 1990 (avec n'importe quelle opération). Une virgule (15,03) est aussi comprise comme jour,mois.</div>
+
+  <div class="grp">Déclenchement du plantage</div>
+  <div class="card">
+    <div class="row"><span>Déclencheur</span>
+      <select id="sTrig">
+        <option value="eq">Après « = »</option>
+        <option value="idle">Après inactivité</option>
+        <option value="manual">Manuel (2 touches sur le nombre)</option>
+      </select></div>
+    <div class="row"><span>Délai après « = » (s)</span><input type="number" id="sEqDelay" step="0.5" min="0"></div>
+    <div class="row"><span>Inactivité (s)</span><input type="number" id="sIdle" step="1" min="1"></div>
+  </div>
+
+  <div class="grp">Faux redémarrage</div>
+  <div class="card">
+    <div class="row"><span>Écran noir avant (s)</span><input type="number" id="sBlack1" step="0.5" min="0"></div>
+    <div class="row"><span>Image de démarrage</span><span style="display:flex;gap:8px;align-items:center"><img class="thumb" id="sBootThumb"><button class="abtn" id="sBootPick">Choisir</button><button class="abtn red" id="sBootDel">✕</button></span></div>
+    <div class="row"><span>Taille de l'image</span><select id="sBootSize"><option value="full">Plein écran</option><option value="small">Petit (logo)</option></select></div>
+    <div class="row"><span>Durée de l'image (s)</span><input type="number" id="sBootDur" step="0.5" min="0"></div>
+    <div class="row"><span>Écran noir après (s)</span><input type="number" id="sBlack2" step="0.5" min="0"></div>
+  </div>
+
+  <div class="grp">Écran de code</div>
+  <div class="card">
+    <div class="row"><span>Nombre de chiffres</span><select id="sLen"><option value="6">6</option><option value="4">4</option></select></div>
+    <div class="row"><span>Le 1er code échoue</span><label class="sw"><input type="checkbox" id="sFailFirst"><span></span></label></div>
+    <div class="row"><span>Fond d'écran (flouté)</span><span style="display:flex;gap:8px;align-items:center"><img class="thumb" id="sWallThumb"><button class="abtn" id="sWallPick">Choisir</button><button class="abtn red" id="sWallDel">✕</button></span></div>
+  </div>
+  <div class="note">Sur l'écran de code : toucher 2 fois « Annuler » change 6 ↔ 4 chiffres. Maintenir « Urgence » = peek (date, calculs, 1er code). Après déverrouillage : maintenir +/− = 1er code affiché comme résultat.</div>
+
+  <div class="grp">Relais (mini écran / Lumen)</div>
+  <div class="card">
+    <div class="row"><span>Envoyer au relais</span><label class="sw"><input type="checkbox" id="sRelayOn"><span></span></label></div>
+    <div class="row col"><span>Adresse d'envoi (POST)</span><input type="text" id="sRelayPost" autocapitalize="off" autocorrect="off" spellcheck="false"></div>
+    <div class="row col"><span>Lien API pour l'app Lumen (JSON)</span><input type="text" id="sRelayGet" autocapitalize="off" autocorrect="off" spellcheck="false">
+      <div style="display:flex;gap:8px"><button class="abtn" id="sCopy">Copier</button><button class="abtn" id="sTest">Envoyer un test</button></div></div>
+    <div class="row"><span>Corps envoyé</span><select id="sBody"><option value="json">JSON {"text": …}</option><option value="text">Texte brut</option></select></div>
+  </div>
+  <div class="note" id="sRelayMsg">Le texte est envoyé en majuscules, court, pour le mini écran.</div>
+
+  <input type="file" id="fileIn" accept="image/*" class="hidden">
+ </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+const $=s=>document.querySelector(s);
+const store={get(k,d){try{const v=localStorage.getItem('calcu_'+k);return v==null?d:JSON.parse(v)}catch(e){return d}},
+             set(k,v){try{localStorage.setItem('calcu_'+k,JSON.stringify(v))}catch(e){}}};
+
+/* ---------- Réglages ---------- */
+const DEF={fmt:'auto',trig:'eq',eqDelay:1.5,idle:5,black1:1.2,bootDur:3,black2:1.2,bootSize:'full',
+  len:6,failFirst:true,relayOn:true,
+  relayPost:'https://relais.michaeldemers2003.workers.dev/calcu',
+  relayGet:'https://relais.michaeldemers2003.workers.dev/calcu',body:'json'};
+const S=Object.assign({},DEF,store.get('settings',{}));
+const saveS=()=>store.set('settings',S);
+let bootImg=store.get('bootImg',null), wallImg=store.get('wallImg',null);
+
+/* ---------- État du tour ---------- */
+// T = { armed, phase:'calc'|'lock', hist:[{expr,res}], first:[tokens], code:null, attempts:0 }
+let T=Object.assign({armed:true,phase:'calc',hist:[],first:null,code:null,attempts:0},store.get('trick',{}));
+const saveT=()=>store.set('trick',T);
+
+/* ---------- Format des nombres (fr) ---------- */
+const NB=' ';
+function groupInt(s){let neg=s[0]==='-';if(neg)s=s.slice(1);s=s.replace(/\B(?=(\d{3})+(?!\d))/g,NB);return (neg?'-':'')+s}
+function fmtEntry(t){ // jeton en cours de saisie, ex "1234,5"
+  const [i,d]=t.split(',');return groupInt(i)+(d!==undefined?','+d:'');
+}
+function fmtNum(n){
+  if(!isFinite(n))return 'Erreur';
+  if(Object.is(n,-0))n=0;
+  const a=Math.abs(n);
+  if(a!==0&&(a>=1e15||a<1e-9)){
+    let s=n.toExponential(6).replace(/\.?0+e/,'e').replace('e+','e').replace('.',',');return s;
+  }
+  let s=parseFloat(n.toPrecision(12)).toString();
+  if(s.includes('e'))return n.toExponential(6).replace(/\.?0+e/,'e').replace('e+','e').replace('.',',');
+  const [i,d]=s.split('.');return groupInt(i)+(d?','+d:'');
+}
+const toNum=t=>parseFloat(t.replace(',','.'));
+const isOp=t=>['+','−','×','÷'].includes(t);
+
+/* ---------- Calculatrice ---------- */
+let expr=[];        // ex ['15031990','×','2']
+let justEval=false, lastResult=null;
+const exprLine=$('#exprLine'), mainLine=$('#mainLine');
+
+function exprToStr(arr){return arr.map(t=>isOp(t)?t:fmtEntry(t)).join('')}
+function evaluate(arr){
+  const a=arr.slice();if(isOp(a[a.length-1]))a.pop();if(!a.length)return 0;
+  let vals=[toNum(a[0])],ops=[];
+  for(let i=1;i<a.length;i+=2){const op=a[i],v=toNum(a[i+1]);
+    if(op==='×')vals[vals.length-1]*=v;else if(op==='÷')vals[vals.length-1]/=v;else{ops.push(op);vals.push(v)}}
+  let r=vals[0];ops.forEach((op,i)=>{r=op==='+'?r+vals[i+1]:r-vals[i+1]});
+  return r;
+}
+function fit(el,base){
+  el.style.fontSize=base+'px';const max=el.parentNode.clientWidth-36;let fs=base;
+  while(el.scrollWidth>max&&fs>22){fs-=2;el.style.fontSize=fs+'px'}
+}
+function mainBase(){return Math.min(96,Math.round(window.innerWidth*0.215))}
+let peeking=false;
+function render(){
+  if(peeking)return;
+  if(justEval){mainLine.textContent=fmtNum(lastResult);}
+  else{mainLine.textContent=expr.length?exprToStr(expr):'0';}
+  if(!justEval)exprLine.textContent='';
+  $('#acTxt').textContent='AC';
+  fit(mainLine,mainBase());fit(exprLine,30);
+}
+function lastTok(){return expr[expr.length-1]}
+function startFresh(){if(justEval){expr=[];justEval=false;exprLine.textContent=''}}
+function press(k){
+  if(/^\d$/.test(k)){
+    startFresh();
+    const t=lastTok();
+    if(t===undefined||isOp(t))expr.push(k);
+    else{const digits=t.replace(/[^\d]/g,'').length;
+      if(t==='0')expr[expr.length-1]=k;else if(t==='-0')expr[expr.length-1]='-'+k;
+      else if(digits<9)expr[expr.length-1]=t+k;}
+  }else if(k==='comma'){
+    startFresh();const t=lastTok();
+    if(t===undefined||isOp(t))expr.push('0,');else if(!t.includes(','))expr[expr.length-1]=t+',';
+  }else if(isOp(k)){
+    if(justEval){expr=[numToTok(lastResult)];justEval=false;exprLine.textContent=''}
+    const t=lastTok();
+    if(t===undefined)expr.push('0',k);else if(isOp(t))expr[expr.length-1]=k;else expr.push(k);
+  }else if(k==='='){
+    if(justEval||!expr.length)return;
+    if(isOp(lastTok()))expr.pop();
+    const r=evaluate(expr);const e=exprToStr(expr);
+    lastResult=r;justEval=true;
+    const item={expr:e,res:fmtNum(r),tokens:expr.slice()};
+    if(T.armed){T.hist.push(item);if(!T.first)T.first=expr.slice();saveT();}
+    exprLine.textContent=e;
+    render();
+    if(T.armed&&S.trig==='eq')schedule(S.eqDelay*1000);
+    return;
+  }else if(k==='ac'){
+    expr=[];justEval=false;lastResult=null;exprLine.textContent='';
+  }else if(k==='back'){
+    if(justEval){expr=[];justEval=false;exprLine.textContent=''}
+    else{const t=lastTok();if(t!==undefined){
+      if(isOp(t)||t.length<=1||(t.length===2&&t[0]==='-'))expr.pop();else expr[expr.length-1]=t.slice(0,-1);}}
+  }else if(k==='pct'){
+    if(justEval){lastResult=lastResult/100;render();return}
+    const t=lastTok();if(t!==undefined&&!isOp(t))expr[expr.length-1]=numToTok(toNum(t)/100);
+  }else if(k==='neg'){
+    if(justEval){lastResult=-lastResult;render();return}
+    const t=lastTok();
+    if(t===undefined||isOp(t))expr.push('-0');else expr[expr.length-1]=t[0]==='-'?t.slice(1):'-'+t;
+  }
+  render();
+  if(T.armed&&S.trig==='idle')scheduleIdle();
+}
+function numToTok(n){let s=parseFloat(n.toPrecision(12)).toString();if(s.includes('e'))s=n.toString();return s.replace('.',',')}
+
+/* ---------- Touches (pression visuelle + appuis longs) ---------- */
+function bindKey(el,onTap,onHoldStart,onHoldEnd,holdMs){
+  let timer=null,held=false,active=false;
+  el.addEventListener('pointerdown',e=>{e.preventDefault();active=true;held=false;el.classList.add('down');
+    if(onHoldStart)timer=setTimeout(()=>{held=true;onHoldStart()},holdMs||450);});
+  const end=(fire)=>{if(!active)return;active=false;clearTimeout(timer);el.classList.remove('down');
+    if(held){onHoldEnd&&onHoldEnd()}else if(fire)onTap&&onTap();};
+  el.addEventListener('pointerup',()=>end(true));
+  el.addEventListener('pointercancel',()=>end(false));
+  el.addEventListener('pointerleave',()=>end(false));
+  el.addEventListener('contextmenu',e=>e.preventDefault());
+}
+document.querySelectorAll('#keys .key').forEach(el=>{
+  const k=el.dataset.k;
+  if(k==='neg')bindKey(el,()=>press('neg'),peekOn,peekOff,450);
+  else if(k==='ac')bindKey(el,()=>press('ac'),()=>{rearm();press('ac')},null,1000);
+  else bindKey(el,()=>press(k));
+});
+
+/* Peek dans la calculatrice (maintenir +/−) */
+function peekOn(){
+  peeking=true;
+  const code=T.code;
+  if(code){mainLine.textContent=code;exprLine.textContent=dateShort()||''}
+  else{const p=buildPeek();mainLine.textContent=p.rawFirst||'0';exprLine.textContent=p.date||''}
+  fit(mainLine,mainBase());fit(exprLine,30);
+}
+function peekOff(){peeking=false;
+  if(justEval&&expr.length)exprLine.textContent=exprToStr(expr);
+  render();}
+
+/* Déclencheur manuel : 2 touches sur la zone du nombre */
+let lastDispTap=0;
+$('#display').addEventListener('pointerup',()=>{
+  if(!T.armed||S.trig!=='manual')return;
+  const n=Date.now();if(n-lastDispTap<350){lastDispTap=0;startBug()}else lastDispTap=n;
+});
+
+/* ---------- Historique (bouton en haut à gauche) ---------- */
+function openHist(){
+  const list=$('#histList');list.innerHTML='';
+  const items=T.armed?T.hist:[];
+  if(items.length){$('#histEmpty').classList.add('hidden');
+    list.innerHTML='<div class="day">Aujourd’hui</div>'+items.slice().reverse().map(i=>`<div class="it"><div class="e">${i.expr}</div><div class="r">${i.res}</div></div>`).join('');
+  }else $('#histEmpty').classList.remove('hidden');
+  const d=$('#histDim'),h=$('#hist');d.classList.remove('hidden');h.classList.remove('hidden');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{d.classList.add('on');h.classList.add('on')}));
+}
+function closeHist(){const d=$('#histDim'),h=$('#hist');d.classList.remove('on');h.classList.remove('on');
+  setTimeout(()=>{d.classList.add('hidden');h.classList.add('hidden')},380)}
+$('#btnHist').addEventListener('click',openHist);
+$('#histClose').addEventListener('click',closeHist);
+$('#histDim').addEventListener('click',closeHist);
+
+/* Menu caché : toucher 2 fois l'icône en haut à droite */
+let lastMode=0;
+$('#btnMode').addEventListener('click',()=>{const n=Date.now();if(n-lastMode<400){lastMode=0;openSettings()}else lastMode=n});
+
+/* ---------- Analyse de la date ---------- */
+const MOIS=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+const JOURS=['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+function sign(d,m){const t=[[1,20,'Capricorne','Verseau'],[2,19,'Verseau','Poissons'],[3,21,'Poissons','Bélier'],[4,20,'Bélier','Taureau'],[5,21,'Taureau','Gémeaux'],[6,21,'Gémeaux','Cancer'],[7,23,'Cancer','Lion'],[8,23,'Lion','Vierge'],[9,23,'Vierge','Balance'],[10,23,'Balance','Scorpion'],[11,22,'Scorpion','Sagittaire'],[12,22,'Sagittaire','Capricorne']][m-1];return d<t[1]?t[2]:t[3]}
+function validDM(d,m,y){if(m<1||m>12||d<1)return false;const dim=new Date(y||2000,m,0).getDate();return d<=dim}
+function fullYear(y,len){if(len===4)return y;const cur=new Date().getFullYear()%100;return y<=cur?2000+y:1900+y}
+function candidates(digits,order){
+  const out=[];const L=digits.length;
+  for(const yl of [4,2,0])for(const a of [2,1])for(const b of [2,1]){
+    if(a+b+yl!==L)continue;
+    const p1=+digits.slice(0,a),p2=+digits.slice(a,a+b);let y=yl?+digits.slice(a+b):null;
+    if(yl)y=fullYear(y,yl);
+    const d=order==='mdy'?p2:p1,m=order==='mdy'?p1:p2;
+    if(validDM(d,m,y))out.push({d,m,y,score:(a===2?2:0)+(b===2?2:0)+(yl===4?1:0)});
+  }
+  out.sort((x,y)=>y.score-x.score);
+  const seen=new Set();return out.filter(c=>{const k=c.d+'/'+c.m+'/'+c.y;if(seen.has(k))return false;seen.add(k);return true});
+}
+function parseDate(tokens){
+  if(!tokens||!tokens.length)return null;
+  const nums=tokens.filter(t=>!isOp(t)).map(t=>t.replace('-',''));
+  const first=nums[0]||'';
+  if(S.fmt==='free')return null;
+  const sepOK=()=>{if(nums.length<2)return null;const d=+nums[0],m=+nums[1];let y=nums[2]?+nums[2]:null;
+    if(nums[2]&&nums[2].length<=2)y=fullYear(y,2);
+    return validDM(d,m,y)&&/^\d+$/.test(nums[0])&&/^\d+$/.test(nums[1])?[{d,m,y}]:null};
+  if(S.fmt==='sep')return sepOK();
+  if(first.includes(',')){const [a,b]=first.split(',');const d=+a,m=+b.slice(0,2);if(validDM(d,m,null))return [{d,m,y:null}]}
+  const digits=first.replace(/\D/g,'');
+  if(S.fmt==='auto'&&nums.length>=2&&digits.length<=2){const s=sepOK();if(s)return s}
+  let c=candidates(digits,S.fmt==='mdy'?'mdy':'dmy');
+  if(!c.length&&S.fmt==='auto')c=candidates(digits,'mdy');
+  return c.length?c:null;
+}
+function dateLabel(c,long){
+  let s=c.d+(c.d===1?'er':'')+' '+MOIS[c.m-1]+(c.y?' '+c.y:'');
+  if(long){s+=' · '+sign(c.d,c.m);
+    if(c.y){const dt=new Date(c.y,c.m-1,c.d);const now=new Date();let age=now.getFullYear()-c.y;
+      if(now<new Date(now.getFullYear(),c.m-1,c.d))age--;s+=' · '+JOURS[dt.getDay()]+' · '+age+' ans'}}
+  return s;
+}
+function buildPeek(){
+  const tokens=T.first||(expr.length?expr:null);
+  const c=parseDate(tokens);
+  const rawFirst=tokens?fmtEntry(tokens.find(t=>!isOp(t))||''):'';
+  return {
+    rawFirst,
+    date:c?dateLabel(c[0],true):'',
+    alt:c&&c.length>1?'ou '+c.slice(1,3).map(x=>dateLabel(x,false)).join(', '):'',
+    calcs:T.hist.map(h=>h.expr+' = '+h.res),
+    current:(!T.hist.length&&expr.length)?exprToStr(expr):'',
+    code:T.code
+  };
+}
+function dateShort(){const tokens=T.first||(expr.length?expr:null);const c=parseDate(tokens);
+  return c?dateLabel(c[0],false)+' · '+sign(c[0].d,c[0].m):(tokens?fmtEntry(tokens.find(t=>!isOp(t))||''):'')}
+
+/* ---------- Relais ---------- */
+function relaySend(text,cb){
+  if(!S.relayOn||!S.relayPost){cb&&cb(false);return}
+  try{
+    const body=S.body==='json'?JSON.stringify({text:text,ts:Date.now()}):text;
+    fetch(S.relayPost,{method:'POST',mode:'cors',headers:{'Content-Type':'text/plain;charset=UTF-8'},body,keepalive:true})
+      .then(r=>cb&&cb(r.ok)).catch(()=>cb&&cb(false));
+  }catch(e){cb&&cb(false)}
+}
+function relayInfo(){
+  const p=buildPeek();
+  const parts=[];
+  if(T.code)parts.push('CODE '+T.code);
+  const tokens=T.first||(expr.length?expr:null);const c=parseDate(tokens);
+  if(c){const x=c[0];parts.push(x.d+' '+MOIS[x.m-1].slice(0,4).toUpperCase()+(x.y?' '+x.y:'')+' '+sign(x.d,x.m).toUpperCase())}
+  else if(p.rawFirst)parts.push('NB '+p.rawFirst.replace(/ /g,''));
+  return parts.join(' | ');
+}
+
+/* ---------- Plantage ---------- */
+let bugTimer=null,idleTimer=null;
+function schedule(ms){clearTimeout(bugTimer);bugTimer=setTimeout(startBug,ms)}
+function scheduleIdle(){clearTimeout(idleTimer);if(!expr.length&&!justEval)return;idleTimer=setTimeout(startBug,S.idle*1000)}
+function startBug(){
+  if(!T.armed||T.phase!=='calc')return;
+  clearTimeout(bugTimer);clearTimeout(idleTimer);
+  if(!T.first&&expr.length)T.first=expr.slice();
+  if(!T.first&&!T.hist.length)return; // rien d'entré
+  if(!T.hist.length&&expr.length)T.hist.push({expr:exprToStr(expr),res:fmtNum(evaluate(expr)),tokens:expr.slice()});
+  T.phase='lock';T.code=null;T.attempts=0;saveT();
+  relaySend(relayInfo());
+  closeHist();
+  const crash=$('#crash'),img=$('#bootImg');
+  crash.classList.remove('hidden');img.classList.remove('on');
+  setTimeout(()=>{
+    if(bootImg&&S.bootDur>0){img.src=bootImg;img.className=S.bootSize==='small'?'small on':'on';
+      setTimeout(()=>{img.classList.remove('on');setTimeout(showLock,S.black2*1000)},S.bootDur*1000);}
+    else setTimeout(showLock,S.black2*1000);
+  },S.black1*1000);
+}
+
+/* ---------- Écran de code ---------- */
+let entered='';
+const LET=['','ABC','DEF','GHI','JKL','MNO','PQRS','TUV','WXYZ'];
+function buildPad(){
+  const pad=$('#pad');pad.innerHTML='';
+  for(let i=1;i<=10;i++){const n=i===10?0:i;const el=document.createElement('div');
+    el.className='pk'+(n===0?' zero':'');el.innerHTML=`<div class="n">${n}</div><div class="l">${n>0?LET[n-1]:''}</div>`;
+    bindKey(el,()=>padDigit(n));pad.appendChild(el);}
+}
+function renderDots(){
+  const d=$('#dots');d.innerHTML='';
+  for(let i=0;i<S.len;i++){const x=document.createElement('div');x.className='dot'+(i<entered.length?' f':'');d.appendChild(x)}
+  $('#btnCancel').textContent=entered.length?'Supprimer':'Annuler';
+}
+function showLock(){
+  $('#crash').classList.add('hidden');
+  const bg=$('#lockBg');if(wallImg){bg.style.backgroundImage=`url(${wallImg})`}else bg.style.backgroundImage='';
+  entered='';renderDots();
+  const l=$('#lock');l.classList.remove('hidden','out');l.classList.add('fadein');
+  setTimeout(()=>l.classList.remove('fadein'),500);
+}
+let busy=false;
+function padDigit(n){
+  if(busy||entered.length>=S.len)return;
+  entered+=n;renderDots();
+  if(entered.length===S.len){busy=true;setTimeout(submitCode,140)}
+}
+function submitCode(){
+  T.attempts++;
+  if(T.attempts===1){T.code=entered;saveT();relaySend(relayInfo());}
+  if(T.attempts===1&&S.failFirst){
+    const d=$('#dots');d.classList.add('shake');
+    setTimeout(()=>{d.classList.remove('shake');entered='';renderDots();busy=false},520);
+  }else unlock();
+}
+function unlock(){
+  const l=$('#lock');l.classList.add('out');
+  // la calculatrice revient vide, sans historique
+  expr=[];justEval=false;lastResult=null;exprLine.textContent='';render();
+  T.phase='calc';T.armed=false;saveT();
+  setTimeout(()=>{l.classList.add('hidden');l.classList.remove('out');busy=false;entered=''},450);
+}
+let lastCancel=0;
+$('#btnCancel').addEventListener('click',()=>{
+  if(entered.length){entered=entered.slice(0,-1);renderDots();return}
+  const n=Date.now();
+  if(n-lastCancel<400){lastCancel=0;S.len=S.len===6?4:6;saveS();renderDots()}else lastCancel=n;
+});
+/* Peek : maintenir « Urgence » */
+const urg=$('#btnUrg');
+function lockPeekOn(){
+  const p=buildPeek();const lines=[];
+  if(p.code)lines.push('1er code : '+p.code);
+  if(p.date)lines.push(p.date);else if(p.rawFirst)lines.push(p.rawFirst);
+  if(p.alt)lines.push(p.alt);
+  const last=p.calcs.length?p.calcs[p.calcs.length-1]:p.current;
+  if(last&&/[+−×÷]/.test(last))lines.push(last);
+  $('#lockTitle').classList.add('hidden');const pk=$('#lockPeek');pk.innerHTML=lines.map(esc).join('<br>');pk.classList.remove('hidden');
+}
+function lockPeekOff(){$('#lockTitle').classList.remove('hidden');$('#lockPeek').classList.add('hidden')}
+bindKey(urg,null,lockPeekOn,lockPeekOff,350);
+function esc(s){return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+
+/* ---------- Réarmer ---------- */
+function rearm(){T={armed:true,phase:'calc',hist:[],first:null,code:null,attempts:0};saveT();clearTimeout(bugTimer);clearTimeout(idleTimer)}
+
+/* ---------- Réglages ---------- */
+const bindS=[['sFmt','fmt'],['sTrig','trig'],['sEqDelay','eqDelay',1],['sIdle','idle',1],['sBlack1','black1',1],['sBootDur','bootDur',1],
+  ['sBlack2','black2',1],['sBootSize','bootSize'],['sLen','len',1],['sRelayPost','relayPost'],['sRelayGet','relayGet'],['sBody','body']];
+function openSettings(){
+  bindS.forEach(([id,k])=>{$('#'+id).value=S[k]});
+  $('#sFailFirst').checked=S.failFirst;$('#sRelayOn').checked=S.relayOn;
+  $('#sBootThumb').src=bootImg||'';$('#sWallThumb').src=wallImg||'';
+  const p=buildPeek();
+  $('#sPeek').textContent=(T.armed?'Tour armé':'Tour terminé (maintenir AC pour réarmer)')+'\n'+
+    'Nombre de départ : '+(p.rawFirst||'—')+'\nDate : '+(p.date||'—')+(p.alt?'\n'+p.alt:'')+
+    '\nCalculs :\n'+(p.calcs.length?p.calcs.map(c=>'  '+c).join('\n'):'  —')+'\n1er code : '+(T.code||'—')+
+    '\nMessage relais : '+(relayInfo()||'—');
+  $('#settings').classList.remove('hidden');
+}
+bindS.forEach(([id,k,num])=>{$('#'+id).addEventListener('change',e=>{S[k]=num?parseFloat(e.target.value)||0:e.target.value;saveS()})});
+$('#sFailFirst').addEventListener('change',e=>{S.failFirst=e.target.checked;saveS()});
+$('#sRelayOn').addEventListener('change',e=>{S.relayOn=e.target.checked;saveS()});
+$('#sDone').addEventListener('click',()=>{$('#settings').classList.add('hidden');render()});
+$('#sRearm').addEventListener('click',()=>{rearm();press('ac');openSettings()});
+$('#sCopy').addEventListener('click',()=>{const v=S.relayGet;
+  (navigator.clipboard?navigator.clipboard.writeText(v):Promise.reject()).then(()=>msg('Lien copié.'),()=>{const i=$('#sRelayGet');i.select();try{document.execCommand('copy');msg('Lien copié.')}catch(e){msg('Copie impossible, sélectionne le lien.')}})});
+$('#sTest').addEventListener('click',()=>{msg('Envoi…');relaySend('TEST CALCU '+new Date().toLocaleTimeString('fr-CA'),ok=>msg(ok?'Test envoyé ✔︎ (vérifie le mini écran)':'Échec de l’envoi — vérifie l’adresse du relais.'))});
+function msg(t){$('#sRelayMsg').textContent=t}
+let pickTarget=null;
+$('#sBootPick').addEventListener('click',()=>{pickTarget='boot';$('#fileIn').click()});
+$('#sWallPick').addEventListener('click',()=>{pickTarget='wall';$('#fileIn').click()});
+$('#sBootDel').addEventListener('click',()=>{bootImg=null;store.set('bootImg',null);$('#sBootThumb').src=''});
+$('#sWallDel').addEventListener('click',()=>{wallImg=null;store.set('wallImg',null);$('#sWallThumb').src=''});
+$('#fileIn').addEventListener('change',e=>{
+  const f=e.target.files[0];if(!f)return;const r=new FileReader();
+  r.onload=()=>{const im=new Image();im.onload=()=>{
+    const max=pickTarget==='wall'?500:1200;const sc=Math.min(1,max/Math.max(im.width,im.height));
+    const c=document.createElement('canvas');c.width=Math.round(im.width*sc);c.height=Math.round(im.height*sc);
+    c.getContext('2d').drawImage(im,0,0,c.width,c.height);
+    const url=c.toDataURL(pickTarget==='boot'&&f.type==='image/png'?'image/png':'image/jpeg',.85);
+    if(pickTarget==='boot'){bootImg=url;store.set('bootImg',url);$('#sBootThumb').src=url}
+    else{wallImg=url;store.set('wallImg',url);$('#sWallThumb').src=url}
+  };im.src=r.result};r.readAsDataURL(f);e.target.value='';
+});
+
+/* ---------- Démarrage ---------- */
+buildPad();render();
+window.addEventListener('resize',render);
+if(T.phase==='lock'){T.attempts=T.code?1:0;showLock()}
+document.addEventListener('gesturestart',e=>e.preventDefault());
+document.addEventListener('touchmove',e=>{if(!e.target.closest('#settings,#histList'))e.preventDefault()},{passive:false});
+})();
+</script>
+</body>
+</html>
