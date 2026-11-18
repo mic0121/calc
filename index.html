@@ -13,54 +13,55 @@
 <title>Calculatrice</title>
 <style>
 :root{
-  --m:16px; --g:8px;
+  --m:16.3px; --g:9px;
+  --or:#f19937; --orD:#fbc98f;
   --k:min(calc((100vw - 2*var(--m) - 3*var(--g))/4), 92px);
   --safeT:env(safe-area-inset-top,0px); --safeB:env(safe-area-inset-bottom,0px);
   --font:-apple-system,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
-html,body{height:100%;background:#000;overflow:hidden;font-family:var(--font);color:#fff;touch-action:manipulation;overscroll-behavior:none}
-.screen{position:fixed;inset:0;}
+html,body{height:var(--appH,100%);background:#000;overflow:hidden;font-family:var(--font);color:#fff;touch-action:manipulation;overscroll-behavior:none}
+.screen{position:fixed;top:0;left:0;right:0;height:var(--appH,100%);}
+@supports (color:color(display-p3 1 1 1)){:root{--or:color(display-p3 .945 .6 .216);--orD:color(display-p3 .98 .79 .56)}}
 .hidden{display:none!important}
 
 /* ===== CALCULATRICE ===== */
 #calc{background:#000;display:flex;flex-direction:column;align-items:center}
 #calcInner{position:relative;width:100%;max-width:430px;height:100%;display:flex;flex-direction:column}
-.topbar{position:absolute;left:var(--m);right:var(--m);top:max(calc(var(--safeT) + 2px),14px);display:flex;justify-content:space-between;z-index:2}
-.tbtn{width:44px;height:44px;border-radius:50%;background:#1d1d1f;display:flex;align-items:center;justify-content:center;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.10),inset 0 0 0 .5px rgba(255,255,255,.10)}
-.tbtn svg{width:23px;height:23px}
-#display{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-end;padding:0 18px 22px 18px;overflow:hidden}
-#exprLine{color:#8d8d92;font-size:30px;font-weight:400;line-height:1.2;white-space:nowrap;min-height:36px;max-width:100%;letter-spacing:.3px}
-#mainLine{color:#fff;font-size:68px;font-weight:300;line-height:1.08;white-space:nowrap;letter-spacing:-.5px;max-width:100%;font-variant-numeric:tabular-nums}
+.topbar{position:absolute;left:var(--m);right:var(--m);top:max(var(--safeT),14px);display:flex;justify-content:space-between;z-index:2}
+.tbtn{width:43.7px;height:43.7px;border-radius:50%;background:#1f1f1f;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 .8px 0 rgba(255,255,255,.16),inset 0 -.6px 0 rgba(255,255,255,.08),inset 0 0 0 .7px rgba(255,255,255,.07)}
+.tbtn svg{width:24px;height:24px}
+#display{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-end;padding:0 19px 13.5px 19px;overflow:hidden}
+#exprLine{color:#8d8d92;font-size:30px;font-weight:400;line-height:1.15;white-space:nowrap;min-height:36px;max-width:100%;letter-spacing:.3px}
+#mainLine{color:#fff;font-size:65.5px;font-weight:400;line-height:1;white-space:nowrap;letter-spacing:0;max-width:100%;font-variant-numeric:tabular-nums}
 #keys{display:grid;grid-template-columns:repeat(4,var(--k));grid-auto-rows:var(--k);gap:var(--g);justify-content:center;
-  padding:0 var(--m) calc(var(--safeB) + 26px)}
+  padding:0 var(--m) calc(max(var(--safeB),20px) + 28.7px)}
 .key{border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:calc(var(--k)*.43);font-weight:400;color:#fff;
-  background:#333335;transition:background .35s ease;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.10),inset 0 0 0 .6px rgba(255,255,255,.09)}
-.key.fn{background:linear-gradient(#686868,#5b5b5b);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 0 0 .6px rgba(255,255,255,.12)}
-.key.op{background:linear-gradient(#f3a03f,#ee9634);font-size:calc(var(--k)*.5);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),inset 0 0 0 .6px rgba(255,255,255,.15)}
-.key.down{transition:none;background:#737373}
+  background:#353535;transition:background .35s ease;
+  box-shadow:inset 0 .8px 0 rgba(255,255,255,.12),inset 0 -.6px 0 rgba(255,255,255,.07),inset 0 0 0 .6px rgba(255,255,255,.05)}
+.key.fn{background:#626262;box-shadow:inset 0 .8px 0 rgba(255,255,255,.20),inset 0 -.6px 0 rgba(255,255,255,.10),inset 0 0 0 .6px rgba(255,255,255,.06)}
+.key.op{background:var(--or);font-size:calc(var(--k)*.5);box-shadow:inset 0 .8px 0 rgba(255,255,255,.30),inset 0 -.6px 0 rgba(255,255,255,.15),inset 0 0 0 .6px rgba(255,255,255,.08)}
+.key.down{transition:none;background:#6e6e6e}
 .key.fn.down{background:#d4d4d2}
-.key.op.down{background:#f9c98f}
+.key.op.down{background:var(--orD)}
 .key svg{width:calc(var(--k)*.47);height:calc(var(--k)*.47)}
 .key .txt{transform:translateY(1px)}
 
 /* historique */
-#histDim{position:absolute;inset:0;background:rgba(0,0,0,.5);z-index:5;opacity:0;transition:opacity .3s}
+#histDim{position:absolute;left:0;right:0;top:0;height:calc(var(--histTop,400px) + 30px);background:rgba(0,0,0,.5);z-index:5;opacity:0;transition:opacity .3s}
 #histDim.on{opacity:1}
-#hist{position:absolute;left:8px;right:8px;bottom:8px;top:calc(100% - var(--safeB) - 26px - 5*var(--k) - 3.4*var(--g));
-  border-radius:38px 38px 46px 46px;z-index:6;overflow:hidden;
-  background:rgba(38,38,40,.62);-webkit-backdrop-filter:blur(26px) saturate(140%);backdrop-filter:blur(26px) saturate(140%);
+#hist{position:absolute;left:8px;right:8px;bottom:12px;top:var(--histTop,400px);
+  border-radius:40px 40px 52px 52px;z-index:6;overflow:hidden;
+  background:rgba(42,42,44,.34);-webkit-backdrop-filter:blur(16px) saturate(85%);backdrop-filter:blur(16px) saturate(85%);backdrop-filter:blur(26px) saturate(140%);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 0 0 .6px rgba(255,255,255,.10);
   transform:translateY(105%);transition:transform .38s cubic-bezier(.2,.9,.25,1)}
 #hist.on{transform:translateY(0)}
 #hist .grab{position:absolute;top:6px;left:50%;width:56px;height:5px;margin-left:-28px;border-radius:3px;background:rgba(255,255,255,.35)}
-#histClose{position:absolute;top:14px;right:14px;width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  background:rgba(120,90,50,.45);box-shadow:inset 0 1px 0 rgba(255,255,255,.25),inset 0 0 0 .6px rgba(255,255,255,.25)}
+#histClose{position:absolute;top:14px;right:16px;width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(140,95,40,.45);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.28)}
 #histClose svg{width:18px;height:18px}
-#histEmpty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#8e8e93;font-size:19px;font-weight:500;gap:10px;padding-top:40px}
-#histEmpty svg{width:30px;height:30px}
+#histEmpty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#8e8e93;font-size:18px;font-weight:500;gap:10px;padding-top:30px}
+#histEmpty svg{width:27px;height:27px}
 #histList{position:absolute;inset:66px 22px 24px 22px;overflow-y:auto;text-align:right}
 #histList .day{color:#8e8e93;font-size:15px;font-weight:600;text-align:left;margin:4px 0 8px}
 #histList .it{padding:8px 0;border-bottom:.5px solid rgba(255,255,255,.12)}
@@ -134,10 +135,10 @@ html,body{height:100%;background:#000;overflow:hidden;font-family:var(--font);co
  <div id="calcInner">
   <div class="topbar">
     <div class="tbtn" id="btnHist" aria-label="Historique">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.3"/><path d="M12 6.6V12H7.4"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.05" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6.1V12.2H6.9"/></svg>
     </div>
     <div class="tbtn" id="btnMode" aria-label="Mode">
-      <svg viewBox="0 0 24 24" fill="#fff"><path d="M7.2 2h9.6A2.7 2.7 0 0 1 19.5 4.7v14.6A2.7 2.7 0 0 1 16.8 22H7.2a2.7 2.7 0 0 1-2.7-2.7V4.7A2.7 2.7 0 0 1 7.2 2Zm.3 2.1a.9.9 0 0 0-.9.9v2.6c0 .5.4.9.9.9h9a.9.9 0 0 0 .9-.9V5a.9.9 0 0 0-.9-.9h-9Z"/><circle cx="8.3" cy="11.6" r="1.25"/><circle cx="12" cy="11.6" r="1.25"/><circle cx="15.7" cy="11.6" r="1.25"/><circle cx="8.3" cy="15.1" r="1.25"/><circle cx="12" cy="15.1" r="1.25"/><circle cx="15.7" cy="15.1" r="1.25"/><circle cx="8.3" cy="18.6" r="1.25"/><circle cx="12" cy="18.6" r="1.25"/><circle cx="15.7" cy="18.6" r="1.25"/></svg>
+      <svg viewBox="0 0 24 24"><rect x="4.4" y="1" width="15.2" height="22" rx="3" fill="#fff"/><rect x="6.5" y="3.1" width="11" height="4.4" rx="1.1" fill="#1f1f1f"/><circle cx="8.4" cy="11" r="1.45" fill="#1f1f1f"/><circle cx="12" cy="11" r="1.45" fill="#1f1f1f"/><circle cx="15.6" cy="11" r="1.45" fill="#1f1f1f"/><circle cx="8.4" cy="14.6" r="1.45" fill="#1f1f1f"/><circle cx="12" cy="14.6" r="1.45" fill="#1f1f1f"/><circle cx="15.6" cy="14.6" r="1.45" fill="#1f1f1f"/><circle cx="8.4" cy="18.2" r="1.45" fill="#1f1f1f"/><circle cx="12" cy="18.2" r="1.45" fill="#1f1f1f"/><circle cx="15.6" cy="18.2" r="1.45" fill="#1f1f1f"/></svg>
     </div>
   </div>
   <div id="display">
@@ -315,14 +316,14 @@ function fit(el,base){
   el.style.fontSize=base+'px';const max=el.parentNode.clientWidth-36;let fs=base;
   while(el.scrollWidth>max&&fs>22){fs-=2;el.style.fontSize=fs+'px'}
 }
-function mainBase(){return Math.min(96,Math.round(window.innerWidth*0.215))}
+function mainBase(){return Math.min(74,window.innerWidth*0.163)}
 let peeking=false;
 function render(){
   if(peeking)return;
   if(justEval){mainLine.textContent=fmtNum(lastResult);}
   else{mainLine.textContent=expr.length?exprToStr(expr):'0';}
   if(!justEval)exprLine.textContent='';
-  $('#acTxt').textContent='AC';
+  $('#acTxt').textContent=(justEval||expr.length)?'C':'AC';
   fit(mainLine,mainBase());fit(exprLine,30);
 }
 function lastTok(){return expr[expr.length-1]}
@@ -634,9 +635,18 @@ $('#fileIn').addEventListener('change',e=>{
   };im.src=r.result};r.readAsDataURL(f);e.target.value='';
 });
 
+/* ---------- Hauteur réelle (iOS 26 raccourcit les web apps) ---------- */
+function setH(){
+  let h=window.innerHeight;
+  const portrait=window.innerWidth<window.innerHeight;
+  if(navigator.standalone&&portrait&&Math.abs(screen.width-window.innerWidth)<3&&screen.height>h)h=screen.height;
+  document.documentElement.style.setProperty('--appH',h+'px');
+  requestAnimationFrame(()=>{const k=$('#keys');if(k)document.documentElement.style.setProperty('--histTop',(k.offsetTop+67)+'px')});
+}
+setH();window.addEventListener('resize',()=>{setH();render()});
+window.addEventListener('orientationchange',()=>setTimeout(setH,300));
 /* ---------- Démarrage ---------- */
 buildPad();render();
-window.addEventListener('resize',render);
 if(T.phase==='lock'){T.attempts=T.code?1:0;showLock()}
 document.addEventListener('gesturestart',e=>e.preventDefault());
 document.addEventListener('touchmove',e=>{if(!e.target.closest('#settings,#histList'))e.preventDefault()},{passive:false});
