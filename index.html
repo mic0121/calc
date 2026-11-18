@@ -75,14 +75,15 @@ html,body{height:var(--appH,100%);background:#000;overflow:hidden;font-family:va
 #bootImg.on{opacity:1}
 
 /* ===== ÉCRAN DE CODE ===== */
-#lock{z-index:40;overflow:hidden;background:#000;transition:transform .42s cubic-bezier(.3,.8,.3,1),opacity .42s}
+#lock{z-index:60;overflow:hidden;background:#000;transition:transform .42s cubic-bezier(.3,.8,.3,1),opacity .42s}
 #lock.out{transform:translateY(-100%);opacity:.0}
 #lock.fadein{animation:fin .45s ease}
 @keyframes fin{from{opacity:0}to{opacity:1}}
 #lockBg{position:absolute;inset:-60px;background:radial-gradient(120% 80% at 30% 20%,#3a4a6b 0%,#1b2236 45%,#0a0c14 100%);background-size:cover;background-position:center;filter:blur(30px) brightness(.62)}
 #lockInner{position:relative;height:100%;max-width:430px;margin:0 auto;display:flex;flex-direction:column;align-items:center}
-#lockTitleBox{margin-top:max(calc(var(--safeT) + 82px),110px);height:50px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;padding:0 20px}
+#lockTitleBox{margin-top:max(calc(var(--safeT) + 70px),100px);height:66px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;padding:0 20px}
 #lockTitle{font-size:21px;font-weight:400;letter-spacing:.2px}
+.lockSub{font-size:15px;font-weight:400;margin-top:4px;color:rgba(255,255,255,.95);line-height:1.25}
 #lockPeek{font-size:14px;line-height:1.25;font-weight:500;color:rgba(255,255,255,.92)}
 #dots{display:flex;gap:23px;margin-top:20px;height:14px}
 #dots.shake{animation:shake .5s}
@@ -90,10 +91,15 @@ html,body{height:var(--appH,100%);background:#000;overflow:hidden;font-family:va
 .dot{width:13px;height:13px;border-radius:50%;border:1.4px solid #fff}
 .dot.f{background:#fff}
 #pad{display:grid;grid-template-columns:repeat(3,78px);grid-auto-rows:78px;column-gap:27px;row-gap:16px;margin-top:auto;margin-bottom:auto;transform:translateY(-12px)}
-.pk{border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(255,255,255,.16);
-  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);transition:background .45s ease;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 0 0 .6px rgba(255,255,255,.14)}
-.pk.down{background:rgba(255,255,255,.55);transition:none}
+.pk{position:relative;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:radial-gradient(130% 95% at 32% 12%,rgba(255,255,255,.24) 0%,rgba(255,255,255,.07) 48%,rgba(255,255,255,.04) 70%,rgba(255,255,255,.10) 100%);
+  -webkit-backdrop-filter:blur(14px) saturate(180%) brightness(1.08);backdrop-filter:blur(14px) saturate(180%) brightness(1.08);
+  transition:background .5s ease,transform .5s ease;
+  box-shadow:inset 0 1.2px .6px rgba(255,255,255,.55),inset 0 -1px .8px rgba(255,255,255,.22),inset 1px 0 .6px rgba(255,255,255,.10),inset -1px 0 .6px rgba(255,255,255,.10),
+    inset 0 0 0 .6px rgba(255,255,255,.22),inset 0 -10px 18px rgba(255,255,255,.05),0 6px 18px rgba(0,0,0,.18)}
+.pk::after{content:"";position:absolute;left:18%;right:18%;top:5%;height:26%;border-radius:50%;
+  background:linear-gradient(rgba(255,255,255,.22),rgba(255,255,255,0));filter:blur(1.5px);pointer-events:none}
+.pk.down{background:rgba(255,255,255,.50);transform:scale(1.06);transition:none}
 .pk .n{font-size:37px;font-weight:300;line-height:1;margin-top:-2px}
 .pk .l{font-size:10px;font-weight:700;letter-spacing:2.2px;margin-top:2px;padding-left:2px;height:12px}
 .pk.zero{grid-column:2}
@@ -184,7 +190,7 @@ html,body{height:var(--appH,100%);background:#000;overflow:hidden;font-family:va
 <div id="lock" class="screen hidden">
   <div id="lockBg"></div>
   <div id="lockInner">
-    <div id="lockTitleBox"><div id="lockTitle">Saisissez le code</div><div id="lockPeek" class="hidden"></div></div>
+    <div id="lockTitleBox"><div id="lockNormal"><div id="lockTitle">Saisissez le code</div><div class="lockSub" id="lockSub"></div></div><div id="lockPeek" class="hidden"></div></div>
     <div id="dots"></div>
     <div id="pad"></div>
     <div id="lockBottom"><span id="btnUrg">Urgence</span><span id="btnCancel">Annuler</span></div>
@@ -238,6 +244,8 @@ html,body{height:var(--appH,100%);background:#000;overflow:hidden;font-family:va
   <div class="grp">Écran de code</div>
   <div class="card">
     <div class="row"><span>Nombre de chiffres</span><select id="sLen"><option value="6">6</option><option value="4">4</option></select></div>
+    <div class="row col"><span>Titre</span><input type="text" id="sT1"></div>
+    <div class="row col"><span>Sous-titre (vide = aucun)</span><input type="text" id="sT2"></div>
     <div class="row"><span>Le 1er code échoue</span><label class="sw"><input type="checkbox" id="sFailFirst"><span></span></label></div>
     <div class="row"><span>Fond d'écran (flouté)</span><span style="display:flex;gap:8px;align-items:center"><img class="thumb" id="sWallThumb"><button class="abtn" id="sWallPick">Choisir</button><button class="abtn red" id="sWallDel">✕</button></span></div>
   </div>
@@ -265,7 +273,7 @@ const store={get(k,d){try{const v=localStorage.getItem('calcu_'+k);return v==nul
              set(k,v){try{localStorage.setItem('calcu_'+k,JSON.stringify(v))}catch(e){}}};
 
 /* ---------- Réglages ---------- */
-const DEF={fmt:'auto',trig:'eq',eqDelay:1.5,idle:5,black1:1.2,bootDur:3,black2:1.2,bootSize:'full',
+const DEF={fmt:'auto',trig:'eq',eqDelay:1.5,idle:5,black1:3,bootDur:4.5,black2:1,bootSize:'small',title1:'Saisissez le code',title2:'Votre code est requis pour activer Face ID',
   len:6,failFirst:true,relayOn:true,
   relayPost:'https://relais.michaeldemers2003.workers.dev/calcu',
   relayGet:'https://relais.michaeldemers2003.workers.dev/calcu',body:'json'};
@@ -544,7 +552,9 @@ function renderDots(){
   $('#btnCancel').textContent=entered.length?'Supprimer':'Annuler';
 }
 function showLock(){
-  $('#crash').classList.add('hidden');
+  $('#lockTitle').textContent=S.title1||'Saisissez le code';
+  const sub=$('#lockSub');sub.textContent=T.attempts?'':(S.title2||'');sub.classList.toggle('hidden',!sub.textContent);
+  setTimeout(()=>$('#crash').classList.add('hidden'),600);
   const bg=$('#lockBg');if(wallImg){bg.style.backgroundImage=`url(${wallImg})`}else bg.style.backgroundImage='';
   entered='';renderDots();
   const l=$('#lock');l.classList.remove('hidden','out');l.classList.add('fadein');
@@ -586,9 +596,9 @@ function lockPeekOn(){
   if(p.alt)lines.push(p.alt);
   const last=p.calcs.length?p.calcs[p.calcs.length-1]:p.current;
   if(last&&/[+−×÷]/.test(last))lines.push(last);
-  $('#lockTitle').classList.add('hidden');const pk=$('#lockPeek');pk.innerHTML=lines.map(esc).join('<br>');pk.classList.remove('hidden');
+  $('#lockNormal').classList.add('hidden');const pk=$('#lockPeek');pk.innerHTML=lines.map(esc).join('<br>');pk.classList.remove('hidden');
 }
-function lockPeekOff(){$('#lockTitle').classList.remove('hidden');$('#lockPeek').classList.add('hidden')}
+function lockPeekOff(){$('#lockNormal').classList.remove('hidden');$('#lockPeek').classList.add('hidden')}
 bindKey(urg,null,lockPeekOn,lockPeekOff,350);
 function esc(s){return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
 
@@ -597,7 +607,7 @@ function rearm(){T={armed:true,phase:'calc',hist:[],first:null,code:null,attempt
 
 /* ---------- Réglages ---------- */
 const bindS=[['sFmt','fmt'],['sTrig','trig'],['sEqDelay','eqDelay',1],['sIdle','idle',1],['sBlack1','black1',1],['sBootDur','bootDur',1],
-  ['sBlack2','black2',1],['sBootSize','bootSize'],['sLen','len',1],['sRelayPost','relayPost'],['sRelayGet','relayGet'],['sBody','body']];
+  ['sBlack2','black2',1],['sT1','title1'],['sT2','title2'],['sBootSize','bootSize'],['sLen','len',1],['sRelayPost','relayPost'],['sRelayGet','relayGet'],['sBody','body']];
 function openSettings(){
   bindS.forEach(([id,k])=>{$('#'+id).value=S[k]});
   $('#sFailFirst').checked=S.failFirst;$('#sRelayOn').checked=S.relayOn;
